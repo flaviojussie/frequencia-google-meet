@@ -1,13 +1,14 @@
 # Frequência Google Meet™
 
-# Frequência Google Meet™ é um fork do Attendance for Google Meet™
+## O que é o Frequência Google Meet™
 #### 
-A extensão original Attendance for Google Meet™ é uma iniciativa dos desenvolvedores Tyler Lin e Adit Bala, nesse fork tentamos deixar essa bela iniciativa com uma aparência mais amigável para nossos colegas professores da rede estadual do Ceará. 
+A extensão original Frequência Google Meet™ é uma iniciativa dos desenvolvedores Tyler Lin e Adit Bala, nesse fork tentamos deixar essa bela iniciativa com uma aparência mais amigável para nossos colegas professores da rede estadual do Ceará. A extensão originalmente foi desenvolvida em inglês, desta forma traduzimos para facilitar a vida dos usuarios que não tem tanto domínio da língua inglesa. Uma outra adequação feita foi a possibilidade de incluir uma maior número de alunos, no início a extensão suportava apenas a inclusão de 270 alunos.
 
+## Notícias sobre o projeto
 
-# Frequência Google Meet™
+#### 10/10
 
-## Anúncios
+Para adequar nossa extensão a realidade dos nossos educadores, aumentamos o limite de alunos incluidos nas turmas. Apesar de termos um número ilimitado de turmas, a soma de todos alunos não poderia ultrapassar os 270 alunos, apartir dessa atualização teremos uma quantidade bem superior.
 
 #### 9/10
 
@@ -19,13 +20,13 @@ O Google Meet actualizou e quebrou o nosso código, mas nós resolvemos o proble
 
 ## Link oficial de descarregamento
 
-https://chrome.google.com/webstore/detail/attendance-for-google-mee/gioogehddfnceeihfoeencjbhggblkkd
+https://chrome.google.com/webstore/detail/frequencia-google-meet/fldnfkeijmngmgjgnagiidmonemlbmpl
 
 ## Descrição
 
 Na era da COVID-19, as aulas virtuais tornaram-se a norma. Para os professores, no entanto, frequentar estas aulas virtuais é muitas vezes uma dor. Devem acompanhar quando os alunos entram e saem entre conversas paralelas e distracções visuais. Muitos professores da nossa escola queixam-se da dificuldade de frequentar as aulas virtuais, alegando que as extensões existentes do Google Chrome são buggy e não são fiáveis.
 
-A nossa extensão Google Chrome, Attendance for Google Meet™, racionaliza todo o processo de obtenção de assiduidade num Google Meet™. Tudo o que os professores têm de fazer é introduzir o nome da turma e uma lista dos seus alunos. A qualquer momento, os professores podem clicar no botão de presença para ver o estado de cada aluno (presente, ausente, anteriormente presente, ou não na lista), e exportar os dados para uma folha de cálculo lindamente formatada no Google Spreadsheet na sua própria unidade Google.
+A nossa extensão Google Chrome, Frequência Google Meet™, racionaliza todo o processo de obtenção de assiduidade num Google Meet™. Tudo o que os professores têm de fazer é introduzir o nome da turma e uma lista dos seus alunos. A qualquer momento, os professores podem clicar no botão de presença para ver o estado de cada aluno (presente, ausente, anteriormente presente, ou não na lista), e exportar os dados para uma folha de cálculo lindamente formatada no Google Spreadsheet na sua própria unidade Google.
 
 ## Utilização
 
@@ -116,24 +117,24 @@ A nossa extensão pode ligar-se a sites externos que não são operados por nós
 
 O utilizador é livre de recusar o nosso pedido de informações pessoais, entendendo que poderemos não ser capazes de lhe fornecer alguns dos seus serviços desejados.
 
-O uso continuado da nossa extensão será considerado como aceitação das nossas práticas em matéria de privacidade e informações pessoais. Se tiver alguma dúvida sobre a forma como tratamos os dados do utilizador e informações pessoais, não hesite em contactar-nos em tyleradit@gmail.com.
+O uso continuado da nossa extensão será considerado como aceitação das nossas práticas em matéria de privacidade e informações pessoais. Se tiver alguma dúvida sobre a forma como tratamos os dados do utilizador e informações pessoais, não hesite em contactar-nos em flvferna@gmail.com.
 
-Esta política é eficaz a partir de 21 de Agosto de 2020.
+Esta política é eficaz a partir de 03 de Março de 2021.
 
 ## Termos de Serviço
 
 ### 1\. Termos
 
-Ao aceder ao Attendance for Google Meet™ Chrome Extension, está a concordar em estar vinculado a estes termos de serviço, a todas as leis e regulamentos aplicáveis, e concorda que é responsável pelo cumprimento de quaisquer leis locais aplicáveis. Se não concordar com qualquer destes termos, o utilizador está proibido de utilizar ou aceder a este site. Os materiais contidos nesta extensão são protegidos pela legislação aplicável sobre direitos de autor e marcas registadas.
+Ao aceder ao Frequência Google Meet™ Chrome Extension, está a concordar em estar vinculado a estes termos de serviço, a todas as leis e regulamentos aplicáveis, e concorda que é responsável pelo cumprimento de quaisquer leis locais aplicáveis. Se não concordar com qualquer destes termos, o utilizador está proibido de utilizar ou aceder a este site. Os materiais contidos nesta extensão são protegidos pela legislação aplicável sobre direitos de autor e marcas registadas.
 
 ### 2\. Licença de utilização
 
-1.  É concedida permissão para descarregar temporariamente uma cópia dos materiais (informação ou software) no Attendance for Google Meet™ Chrome Extension apenas para visualização transitória pessoal e não comercial. Esta é a concessão de uma licença, não uma transferência de título, e sob esta licença não poderá:
+1.  É concedida permissão para descarregar temporariamente uma cópia dos materiais (informação ou software) no Frequência Google Meet™ Chrome Extension apenas para visualização transitória pessoal e não comercial. Esta é a concessão de uma licença, não uma transferência de título, e sob esta licença não poderá:
     1. utilizar os materiais para qualquer fim comercial, ou para qualquer exibição pública (comercial ou não-comercial);
-    2. tentar descompilar ou fazer engenharia inversa de qualquer software contido no Attendance for Google Meet™ Chrome Extension;
+    2. tentar descompilar ou fazer engenharia inversa de qualquer software contido no Frequência Google Meet™ Chrome Extension;
     3. remover quaisquer direitos de autor ou outras notações de propriedade dos materiais; ou
     4. transferir os materiais para outra pessoa ou "espelhar" os materiais em qualquer outro servidor.
-2.  Esta licença termina automaticamente se violar qualquer uma destas restrições e pode ser rescindida pela Attendance for Google Meet™ Chrome Extension em qualquer altura. Ao terminar a sua visualização destes materiais ou ao terminar esta licença, deverá destruir qualquer material descarregado em sua posse, seja em formato electrónico ou impresso.
+2.  Esta licença termina automaticamente se violar qualquer uma destas restrições e pode ser rescindida pela Frequência Google Meet™ Chrome Extension em qualquer altura. Ao terminar a sua visualização destes materiais ou ao terminar esta licença, deverá destruir qualquer material descarregado em sua posse, seja em formato electrónico ou impresso.
 
 ### 3\. Renúncia de responsabilidade
 
@@ -142,11 +143,11 @@ Ao aceder ao Attendance for Google Meet™ Chrome Extension, está a concordar e
 
 ### 4\. Limitações
 
-Em nenhum caso a Attendance for Google Meet™ Chrome Extension ou os seus fornecedores serão responsáveis por quaisquer danos (incluindo, sem limitação, danos por perda de dados ou lucros, ou devido a interrupção de negócios) decorrentes da utilização ou incapacidade de utilização dos materiais na Attendance for Google Meet™ Chrome Extension, mesmo que a Attendance for Google Meet™ Chrome Extension ou um representante autorizado da Attendance for Google Meet™ Chrome Extension tenha sido notificado oralmente ou por escrito da possibilidade de tais danos. Como algumas jurisdições não permitem limitações de garantias implícitas, ou limitações de responsabilidade por danos consequentes ou incidentais, estas limitações podem não se aplicar ao utilizador.
+Em nenhum caso a Frequência Google Meet™ Chrome Extension ou os seus fornecedores serão responsáveis por quaisquer danos (incluindo, sem limitação, danos por perda de dados ou lucros, ou devido a interrupção de negócios) decorrentes da utilização ou incapacidade de utilização dos materiais na Frequência Google Meet™ Chrome Extension, mesmo que a Frequência Google Meet™ Chrome Extension ou um representante autorizado da Frequência Google Meet™ Chrome Extension tenha sido notificado oralmente ou por escrito da possibilidade de tais danos. Como algumas jurisdições não permitem limitações de garantias implícitas, ou limitações de responsabilidade por danos consequentes ou incidentais, estas limitações podem não se aplicar ao utilizador.
 
 ### 5\. Precisão dos materiais
 
-Os materiais que aparecem no Attendance for Google Meet™ Chrome Extension podem incluir erros técnicos, tipográficos, ou fotográficos. A participação no Google Meet™ Chrome Extension não garante que nenhum dos materiais na sua extensão seja exacto, completo ou actual. A participação no Google Meet™ Chrome Extension pode fazer alterações aos materiais contidos na sua extensão em qualquer altura sem aviso prévio. No entanto, a participação no Google Meet™ Chrome Extension não assume qualquer compromisso de actualizar os materiais.
+Os materiais que aparecem no Frequência Google Meet™ Chrome Extension podem incluir erros técnicos, tipográficos, ou fotográficos. A participação no Google Meet™ Chrome Extension não garante que nenhum dos materiais na sua extensão seja exacto, completo ou actual. A participação no Google Meet™ Chrome Extension pode fazer alterações aos materiais contidos na sua extensão em qualquer altura sem aviso prévio. No entanto, a participação no Google Meet™ Chrome Extension não assume qualquer compromisso de actualizar os materiais.
 
 ### 6\. Ligações
 
