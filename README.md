@@ -48,7 +48,7 @@ Colar nomes de alunos![Edit Class](/img/gif/pasting_names.gif "Colar nomes de al
 
 Clique ![Remove name icon](/img/caps/cancel.svg "Remove Name Icon") para remover um nome.
 
-Finalmente, salve a sua classe clicando no botão verde Save Class ou ![Save Class](/img/caps/save class.png "Save Class").
+Finalmente, salve a sua classe clicando no botão verde Save Class ou ![Save Class](/img/caps/save-class.png "Save Class").
 
 ### Eliminar uma Classe
 Para apagar uma classe, clique ![Delete icon](/img/caps/delete.svg "Delete Icon") ao lado da classe para trazer um ecrã de confirmação.
