@@ -1,19 +1,27 @@
-/* #attendance:focus {
+/**
+#attendance:focus {
     background-color: #e1efee;
     border-radius: 0px 0px 0px 8px;
-} */
+} 
+*/
+
+:root {
+    --gm-theme-color: #2E752A !important;
+    --mdc-theme-primary: #2E752A !important;
+    --mdc-typography-button-font-family: Roboto;
+}
 
 @font-face {
     font-family: 'Material Icons';
     font-style: normal;
     font-weight: 400;
-    src: url(chrome-extension://gioogehddfnceeihfoeencjbhggblkkd/fonts/icons/MaterialIcons-Regular.eot); /* For IE6-8 */
+    src: url(chrome-extension://fldnfkeijmngmgjgnagiidmonemlbmpl/fonts/icons/MaterialIcons-Regular.eot); /* For IE6-8 */
     src: local('Material Icons'), local('MaterialIcons-Regular'),
-        url(chrome-extension://gioogehddfnceeihfoeencjbhggblkkd/fonts/icons/MaterialIcons-Regular.woff2)
+        url(chrome-extension://fldnfkeijmngmgjgnagiidmonemlbmpl/fonts/icons/MaterialIcons-Regular.woff2)
             format('woff2'),
-        url(chrome-extension://gioogehddfnceeihfoeencjbhggblkkd/fonts/icons/MaterialIcons-Regular.woff)
+        url(chrome-extension://fldnfkeijmngmgjgnagiidmonemlbmpl/fonts/icons/MaterialIcons-Regular.woff)
             format('woff'),
-        url(chrome-extension://gioogehddfnceeihfoeencjbhggblkkd/fonts/icons/MaterialIcons-Regular.ttf)
+        url(chrome-extension://fldnfkeijmngmgjgnagiidmonemlbmpl/fonts/icons/MaterialIcons-Regular.ttf)
             format('truetype');
 }
 
@@ -21,9 +29,9 @@
     font-family: 'Bruh Mono';
     font-style: normal;
     font-weight: 300;
-    src: url(chrome-extension://gioogehddfnceeihfoeencjbhggblkkd/fonts/mono/BruhMono.woff2)
+    src: url(chrome-extension://fldnfkeijmngmgjgnagiidmonemlbmpl/fonts/mono/BruhMono.woff2)
             format('woff2'),
-        url(chrome-extension://gioogehddfnceeihfoeencjbhggblkkd/fonts/mono/BruhMono.woff)
+        url(chrome-extension://fldnfkeijmngmgjgnagiidmonemlbmpl/fonts/mono/BruhMono.woff)
             format('woff');
 }
 
@@ -185,7 +193,7 @@
     height: 48px;
     justify-content: left;
     padding-left: 16px;
-    color: #058d80;
+    color: #2E752A;
 }
 
 #addeth-class .mdc-button__icon {
@@ -193,7 +201,7 @@
     height: 24px;
     font-size: 24px;
     margin-right: 16px;
-    color: #058d80;
+    color: #2E752A;
 }
 
 #edit-roster {

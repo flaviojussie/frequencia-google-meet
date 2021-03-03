@@ -29,7 +29,7 @@
     new MutationObserver(function (mutations, me) {
         if (document.querySelector('.CX8SS')) {
             chrome.runtime.sendMessage({ data: 'delete-tab' })
-            chrome.storage.sync.get('auto-export', function (result) {
+            chrome.storage.local.get('auto-export', function (result) {
                 if (result['auto-export']) {
                     port.postMessage({ data: 'export', code: getMeetCode() })
                     Utils.log(`Exporting...`)
@@ -82,12 +82,12 @@
         subtree: true,
     })
 
-    for (const helpButton of document.querySelectorAll('[aria-label="Help"]')) {
+    for (const helpButton of document.querySelectorAll('[aria-label="Ajuda"]')) {
         helpButton.addEventListener('click', function () {
             chrome.runtime.sendMessage({
                 data: 'open-url',
                 url:
-                    'https://github.com/tytot/attendance-for-google-meet#usage',
+                    'https://github.com/flaviojussie/frequenci-google-meet#utiliza%C3%A7%C3%A3o',
             })
         })
     }
@@ -125,7 +125,7 @@
         })
 
     const selectDialog = new MDCDialog(document.getElementById('select'))
-    chrome.storage.sync.get(null, function (result) {
+    chrome.storage.local.get(null, function (result) {
         const code = getMeetCode()
         if (result['show-popup'] && !result.hasOwnProperty(code)) {
             selectDialog.open()
@@ -146,10 +146,10 @@
                 const className =
                     classList.listElements[classList.selectedIndex].name
                 const code = getMeetCode()
-                chrome.storage.sync.get(code, function (result) {
+                chrome.storage.local.get(code, function (result) {
                     let res = result[code]
                     res.class = className
-                    chrome.storage.sync.set({ [code]: res })
+                    chrome.storage.local.set({ [code]: res })
                     document.getElementById(
                         'class-label'
                     ).textContent = className
@@ -177,14 +177,14 @@
     confirmDeleteDialog.listen('MDCDialog:opening', (event) => {
         document.getElementById(
             'delete-dialog-content'
-        ).textContent = `Are you sure you want to delete the class ${deleteButton.classToDelete}?`
+        ).textContent = `Tem certeza que deseja deletar a turma ${deleteButton.classToDelete}?`
     })
     deleteButton.addEventListener('click', function () {
         const className = deleteButton.classToDelete
         deleteClass(className)
         classList.selectedIndex = -1
         selectButton.disabled = true
-        snackbar.labelText = `Successfully deleted class ${className}.`
+        snackbar.labelText = `A turma ${className} excluída com sucesso.`
         removeSnackbarButtons()
         snackbar.open()
     })
@@ -226,7 +226,7 @@
                 snackbar.labelText = error
                 sbHelp.style.display = 'inline-flex'
             } else {
-                snackbar.labelText = 'Successfully exported to Google Sheets™!'
+                snackbar.labelText = 'Exportado com sucesso para o Google Sheets ™!'
                 sbOpen.style.display = 'inline-flex'
             }
             snackbar.close()
@@ -298,7 +298,7 @@
 
     function storeNames(names) {
         const code = getMeetCode()
-        chrome.storage.sync.get(null, function (result) {
+        chrome.storage.local.get(null, function (result) {
             const timestamp = ~~(Date.now() / 1000)
             let codesToDelete = []
             for (const key in result) {
@@ -371,7 +371,7 @@
                 updateRosterStatus(currentData, result.rosters, className, true)
             }
 
-            chrome.storage.sync.set({ [code]: res })
+            chrome.storage.local.set({ [code]: res })
         })
     }
 
@@ -445,7 +445,7 @@
             }
         }
         if (detect && changed) {
-            chrome.storage.sync.set({ rosters: rosters })
+            chrome.storage.local.set({ rosters: rosters })
         }
         const bigAttendance = Object.keys(attendance).map((key) =>
             key.toLocaleUpperCase()
@@ -543,7 +543,7 @@
                     removeSnackbarButtons()
                     rostersCache = rosters
                     addStudent(entry.name)
-                    snackbar.labelText = `Added ${realName} to class.`
+                    snackbar.labelText = `${realName} foi adicionado(a) a turma.`
                     sbUndo.style.display = 'inline-flex'
                     snackbar.close()
                     snackbar.open()
@@ -553,7 +553,7 @@
                     removeSnackbarButtons()
                     rostersCache = rosters
                     removeStudent(entry.name)
-                    snackbar.labelText = `Removed ${realName} from class.`
+                    snackbar.labelText = `${realName} foi removido(a) da turma.`
                     sbUndo.style.display = 'inline-flex'
                     snackbar.close()
                     snackbar.open()
@@ -571,7 +571,7 @@
     }
 
     function openSpreadsheet() {
-        chrome.storage.sync.get('spreadsheet-id', function (result) {
+        chrome.storage.local.get('spreadsheet-id', function (result) {
             const id = result['spreadsheet-id']
             const url = `https://docs.google.com/spreadsheets/d/${id}`
             chrome.runtime.sendMessage({
@@ -622,7 +622,7 @@
             <div class="mdc-list-item__meta">
                 <button
                     class="mdc-icon-button material-icons edit-class"
-                    aria-label="Edit"
+                    aria-label="Editar"
                     jscontroller="VXdfxd"
                     jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                     tabindex="0"
@@ -634,7 +634,7 @@
                 </button>
                 <button
                     class="mdc-icon-button material-icons delete-class"
-                    aria-label="Delete"
+                    aria-label="Deletar"
                     jscontroller="VXdfxd"
                     jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                     tabindex="0"
@@ -650,11 +650,11 @@
 
     function initializeClasses() {
         return new Promise((resolve) => {
-            chrome.storage.sync.get('rosters', function (result) {
+            chrome.storage.local.get('rosters', function (result) {
                 let res = result['rosters']
                 if (res == undefined) {
                     res = {}
-                    chrome.storage.sync.set({ rosters: res })
+                    chrome.storage.local.set({ rosters: res })
                 }
 
                 const classList = document.getElementById('class-list')
@@ -682,9 +682,9 @@
             if (rostersCache == null) {
                 resolve()
             }
-            chrome.storage.sync.set({ rosters: rostersCache }, function () {
+            chrome.storage.local.set({ rosters: rostersCache }, function () {
                 forceStatusUpdate()
-                snackbar.labelText = 'Undo successful.'
+                snackbar.labelText = 'Desfazer com sucesso.'
                 removeSnackbarButtons()
                 snackbar.open()
                 resolve()
@@ -694,10 +694,10 @@
 
     function addClass(className, roster) {
         return new Promise((resolve) => {
-            chrome.storage.sync.get('rosters', function (result) {
+            chrome.storage.local.get('rosters', function (result) {
                 let res = result['rosters']
                 res[className] = roster
-                chrome.storage.sync.set({ rosters: res })
+                chrome.storage.local.set({ rosters: res })
 
                 const classList = document.getElementById('class-list')
                 classList.insertAdjacentHTML(
@@ -717,14 +717,14 @@
 
     function updateClass(className, roster, set = false) {
         return new Promise((resolve) => {
-            chrome.storage.sync.get(null, function (result) {
+            chrome.storage.local.get(null, function (result) {
                 let res = result['rosters']
                 res[className] = roster
-                chrome.storage.sync.set({ rosters: res })
+                chrome.storage.local.set({ rosters: res })
                 if (set) {
                     const code = getMeetCode()
                     result[code].class = className
-                    chrome.storage.sync.set({ [code]: result[code] })
+                    chrome.storage.local.set({ [code]: result[code] })
                 }
                 const classList = document.getElementById('class-list')
                 const classEls = classList.getElementsByTagName('li')
@@ -746,21 +746,21 @@
         set = false
     ) {
         return new Promise((resolve) => {
-            chrome.storage.sync.get(null, function (result) {
+            chrome.storage.local.get(null, function (result) {
                 let res = result['rosters']
                 res[newClassName] = roster
                 delete res[oldClassName]
-                chrome.storage.sync.set({ rosters: res })
+                chrome.storage.local.set({ rosters: res })
                 const code = getMeetCode()
                 if (set) {
                     result[code].class = newClassName
-                    chrome.storage.sync.set({ [code]: result[code] })
+                    chrome.storage.local.set({ [code]: result[code] })
                 }
                 for (const key in result) {
                     const data = result[key]
                     if (key !== code && data.hasOwnProperty('timestamp')) {
                         data.class = newClassName
-                        chrome.storage.sync.set({ [key]: data })
+                        chrome.storage.local.set({ [key]: data })
                     }
                 }
                 const classList = document.getElementById('class-list')
@@ -782,10 +782,10 @@
 
     function deleteClass(className) {
         return new Promise((resolve) => {
-            chrome.storage.sync.get('rosters', function (result) {
+            chrome.storage.local.get('rosters', function (result) {
                 let res = result['rosters']
                 delete res[className]
-                chrome.storage.sync.set({ rosters: res })
+                chrome.storage.local.set({ rosters: res })
 
                 const classList = document.getElementById('class-list')
                 const classEls = classList.getElementsByTagName('li')
@@ -804,29 +804,29 @@
     }
 
     function addStudent(name) {
-        chrome.storage.sync.get(null, function (result) {
+        chrome.storage.local.get(null, function (result) {
             const code = getMeetCode()
             const className = result[code].class
             let res = result.rosters
             res[className].push(name)
-            chrome.storage.sync.set({ rosters: res })
+            chrome.storage.local.set({ rosters: res })
             updateRosterStatus(result[code].attendance, res, className)
         })
     }
 
     function removeStudent(name) {
-        chrome.storage.sync.get(null, function (result) {
+        chrome.storage.local.get(null, function (result) {
             const code = getMeetCode()
             const className = result[getMeetCode()].class
             let res = result.rosters
             res[className] = res[className].filter((n) => n !== name)
-            chrome.storage.sync.set({ rosters: res })
+            chrome.storage.local.set({ rosters: res })
             updateRosterStatus(result[code].attendance, res, className)
         })
     }
 
     function forceStatusUpdate() {
-        chrome.storage.sync.get(null, function (result) {
+        chrome.storage.local.get(null, function (result) {
             const res = result[getMeetCode()]
             const className = res.class
             if (className) {
@@ -926,17 +926,17 @@
                 const className = classTextField.value
                 const initClassName = classTextField.initValue
 
-                chrome.storage.sync.get('rosters', async function (result) {
+                chrome.storage.local.get('rosters', async function (result) {
                     let res = result['rosters']
                     removeSnackbarButtons()
                     if (className === '') {
                         snackbar.labelText =
-                            'Error: The class name cannot be empty.'
+                            'Erro: o nome da turma não pode estar vazio.'
                         snackbar.close()
                         snackbar.open()
                     } else if (className.includes('§')) {
                         snackbar.labelText =
-                            'Error: The class name cannot contain the character §.'
+                            'Erro: O nome da turma não pode conter o caractere §.'
                         snackbar.close()
                         snackbar.open()
                     } else if (
@@ -944,7 +944,7 @@
                         className !== initClassName
                     ) {
                         snackbar.labelText =
-                            'Error: You already have a class with that name.'
+                            'Erro: você já tem uma turma com esse nome.'
                         snackbar.close()
                         snackbar.open()
                     } else {
@@ -997,7 +997,7 @@
                             selectButton.disabled = true
                         }
 
-                        snackbar.labelText = `Successfully saved class ${className}.`
+                        snackbar.labelText = `A turma ${className} foi salva com sucesso.`
                         snackbar.close()
                         snackbar.open()
                     }
@@ -1007,7 +1007,7 @@
         document
             .getElementById('edit-roster')
             .addEventListener('click', function () {
-                chrome.storage.sync.get(null, function (result) {
+                chrome.storage.local.get(null, function (result) {
                     let res = result[getMeetCode()]
                     const className = res.class
                     try {
@@ -1069,10 +1069,10 @@
                     !target.classList.contains('delete-class')
                 ) {
                     const code = getMeetCode()
-                    chrome.storage.sync.get(null, function (result) {
+                    chrome.storage.local.get(null, function (result) {
                         const res = result[code]
                         res.class = classEl.name
-                        chrome.storage.sync.set({ [code]: res })
+                        chrome.storage.local.set({ [code]: res })
 
                         document.getElementById(cardView).hidden = true
                         document.getElementById(defaultView).hidden = false

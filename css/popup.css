@@ -1,5 +1,5 @@
 :root {
-    --mdc-theme-primary: #058d80 !important;
+    --mdc-theme-primary: #2E752A !important;
     --mdc-typography-button-font-family: Roboto;
 }
 
@@ -20,7 +20,7 @@ body {
 }
 
 #header {
-    background-color: #058d80;
+    background-color: #2E752A;
     color: white;
     display: flex;
     align-items: center;
@@ -54,11 +54,32 @@ body {
 }
 
 #version {
+    font-family: 'Inter', Arial, sans-serif;
     font-style: italic;
 }
 
 #content {
     padding-top: 12px;
+}
+
+#autor {
+    font-size: 16px;
+    font-family: 'Inter', Arial, sans-serif;
+    font-weight: bold;
+}
+
+p.normal {
+    line-height: 0.3;
+}
+p.small {
+    line-height: 0.1;
+}
+
+#project {
+    font-size: 8px;
+    font-family: 'Inter', Arial, sans-serif;
+    font-style: italic;
+    
 }
 
 .mdc-dialog__title {

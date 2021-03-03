@@ -29,7 +29,7 @@ function addSheet(className, code, sheetId) {
                     gridProperties: {
                         rowCount: 2,
                         columnCount: 7,
-                        frozenRowCount: 1,
+                        frozenRowCount: 0,
                     },
                 },
             },
@@ -97,18 +97,6 @@ function createHeaders(sheetId) {
                         values: [
                             {
                                 userEnteredValue: {
-                                    stringValue: 'Sobrenome',
-                                },
-                                userEnteredFormat: {
-                                    horizontalAlignment: 'LEFT',
-                                    textFormat: {
-                                        bold: true,
-                                    },
-                                },
-                                note: "O sobrenome do aluno.",
-                            },
-                            {
-                                userEnteredValue: {
                                     stringValue: 'Nome',
                                 },
                                 userEnteredFormat: {
@@ -118,6 +106,18 @@ function createHeaders(sheetId) {
                                     },
                                 },
                                 note: "O nome do aluno.",
+                            },
+                            {
+                                userEnteredValue: {
+                                    stringValue: 'Sobrenome',
+                                },
+                                userEnteredFormat: {
+                                    horizontalAlignment: 'LEFT',
+                                    textFormat: {
+                                        bold: true,
+                                    },
+                                },
+                                note: "O sobrenome do aluno.",
                             },
                             {
                                 userEnteredValue: {
@@ -191,7 +191,7 @@ function createHeaders(sheetId) {
                             {
                                 userEnteredValue: {
                                     stringValue:
-                                        'Gerado pelo Serviço de Atendimento ao Cliente para a extensão Google Meet™.',
+                                        'Gerado pelo Serviço de Atendimento ao Professor para a extensão Google Meet™.',
                                 },
                                 userEnteredFormat: {
                                     horizontalAlignment: 'CENTER',
@@ -554,7 +554,7 @@ function collapseGroup(token, code, spreadsheetId, sheetId) {
 
 function generateAttendanceRows(code) {
     return new Promise((resolve) => {
-        chrome.storage.sync.get(null, function (result) {
+        chrome.storage.local.get(null, function (result) {
             const startUnix = result[code]['start-timestamp']
             const unix = ~~(Date.now() / 1000)
             const mins = Math.round((unix - startUnix) / 6) / 10
@@ -642,12 +642,12 @@ function generateAttendanceRows(code) {
                     values: [
                         {
                             userEnteredValue: {
-                                stringValue: lastName,
+                                stringValue: firstName,
                             },
                         },
                         {
                             userEnteredValue: {
-                                stringValue: firstName,
+                                stringValue: lastName,
                             },
                         },
                         {

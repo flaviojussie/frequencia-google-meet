@@ -2,9 +2,9 @@
     "update_url": "https://clients2.google.com/service/update2/crx",
     
         "name": "Frequência Google Meet™",
-        "version": "1.2.14",
+        "version": "1.2.15",
         "description": "Faça a frequência no Google Meet™ e salve no Google Planilhas™.",
-        "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgu3DFNTJ4W9qEZwA4GjeTn4kj0dXRooOfJdu6BAv041ZWGAx6Nowcj7cd9K4JfCzOGlNpMkXaWX8pXQD004n7oeg2AKqbgO7cKo2EDgLKYKDy+Uq/Mjb/bS8sQaa6kzTVhP8tJg19/DR01EJ0/Y8//2I6OnnhskWMhIZNt2bUGQTG9Pk/i5cRcGNcW1pkv6quTU+n49lU969guaRyK8ER5BUBn1qLzv6g61LDubtYkWAuxkx7KEBUtByGpAeh/xk7aQtuSEEBjhagwfL+aXYRVeecH732gRWzP9yepE8ZHJYNdMfsSq2Pg/KSgj83KO2rZhxGI0RgsIJPOMThh5+hwIDAQAB",
+        "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsuToRdr2rh6nD9YtDQ2+dRLGhWkcunsWtV6kzBssizwO78G01NiQgVuyZh7B17OBWyCIpGzCDvjZrYznwtFwUhOhyqRejYKSyfXFnsgF1BogwVNlbEidRPErSOrfs7opbrKQ65TDKwtb6jNKXCyKQcZvrOSk+omLw1YoMLcVoxX0uuuoiKt8GNixoNV9roKnSJLTigX+Zd8v5x4fU/M/HAa+hwcGtdB5pffmTdUu9xODvxkD5rYliACfP1WpcvmdGEtIs5FOlO4ZcILV7Lo2+UWjrOgon6cViaUzwWwEGBPKf0aDDP7898nMzuv96kQH+Kua0H+6zVlDoFfi5JtOlwIDAQAB",
         "web_accessible_resources": ["fonts/*", "js/attendance.js", "js/inject.js"],
         "background": {
             "scripts": ["js/background.js", "js/requests.js", "js/utils.js"],
@@ -33,7 +33,7 @@
             "*://meet.google.com/**-**-**"
         ],
         "oauth2": {
-            "client_id": "871492450441-lutkcelegqrntqt4dt106ios3ghtrqlb.apps.googleusercontent.com",
+            "client_id": "845746247969-81jrd2hcls08o6pe7phf70p0q3f7f0um.apps.googleusercontent.com",
             "scopes": ["https://www.googleapis.com/auth/drive.file"]
         },
         "icons": {

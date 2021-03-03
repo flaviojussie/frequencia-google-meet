@@ -72,21 +72,21 @@ const cardHTML = `<div
         width: 304px;
         border-radius: 0 0 0 8px;
     "
-    aria-label="Attendance management"
+    aria-label="Gestão de frequência"
     >
     <div hidden id="card-class-view">
         <div class="mdc-card-header">
             <div>
-                <h2 class="CkXZgc card-title">Select Class</h2>
+                <h2 class="CkXZgc card-title">Selecionar Turma</h2>
             </div>
             <button
                 class="mdc-icon-button medium-button material-icons right"
                 style="right: 32px"
-                aria-label="Help"
+                aria-label="Ajuda"
                 jscontroller="VXdfxd"
                 jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                 tabindex="0"
-                data-tooltip="Help"
+                data-tooltip="Ajuda"
                 data-tooltip-vertical-offset="-12"
                 data-tooltip-horizontal-offset="0"
             >
@@ -94,11 +94,11 @@ const cardHTML = `<div
             </button>
             <button
                 class="mdc-icon-button medium-button material-icons right close-card"
-                aria-label="Exit"
+                aria-label="Sair"
                 jscontroller="VXdfxd"
                 jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                 tabindex="0"
-                data-tooltip="Exit"
+                data-tooltip="Sair"
                 data-tooltip-vertical-offset="-12"
                 data-tooltip-horizontal-offset="0"
             >
@@ -111,8 +111,8 @@ const cardHTML = `<div
             <div id="no-classes" style="display: none">
                 <i class="material-icons"> warning </i>
                 <p>
-                    You don't have any classes! Add a class by clicking the
-                    button below.
+                    Você não tem aulas! Adicione uma classe clicando no
+                    botão abaixo.
                 </p>
             </div>
             <button class="mdc-button" id="addeth-class">
@@ -166,22 +166,22 @@ const cardHTML = `<div
                     <ul class="mdc-list mdc-list--dense">
                         <li
                             class="mdc-list-item mdc-ripple-surface"
-                            id="lastName"
-                            role="menuitem"
-                            tabindex="0"
-                        >
-                            <span class="mdc-list-item__text"
-                                >Sort by Last Name (A - Z)</span
-                            >
-                        </li>
-                        <li
-                            class="mdc-list-item mdc-ripple-surface"
                             id="firstName"
                             role="menuitem"
                             tabindex="0"
                         >
                             <span class="mdc-list-item__text"
-                                >Sort by First Name (A - Z)</span
+                                >Classificar por nome (A - Z)</span
+                            >
+                        </li>
+                        <li
+                            class="mdc-list-item mdc-ripple-surface"
+                            id="lastName"
+                            role="menuitem"
+                            tabindex="0"
+                        >
+                            <span class="mdc-list-item__text"
+                                >Classificar por Sobrenome (A - Z)</span
                             >
                         </li>
                         <li
@@ -191,7 +191,7 @@ const cardHTML = `<div
                             tabindex="0"
                         >
                             <span class="mdc-list-item__text"
-                                >Sort by Presence (Present First)</span
+                                >Classificar por presença (presentes primeiro)</span
                             >
                         </li>
                         <li
@@ -201,7 +201,7 @@ const cardHTML = `<div
                             tabindex="0"
                         >
                             <span class="mdc-list-item__text"
-                                >Sort by Presence (Absent First)</span
+                                >Classificar por presença (ausente primeiro)</span
                             >
                         </li>
                     </ul>
@@ -226,11 +226,11 @@ const cardHTML = `<div
             <button
                 class="mdc-icon-button medium-button material-icons right more"
                 style="right: 32px"
-                aria-label="Sort Options"
+                aria-label="Opções de classificação"
                 jscontroller="VXdfxd"
                 jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                 tabindex="0"
-                data-tooltip="Sort Options"
+                data-tooltip="Opções de classificação"
                 data-tooltip-vertical-offset="-12"
                 data-tooltip-horizontal-offset="0"
             >
@@ -238,11 +238,11 @@ const cardHTML = `<div
             </button>
             <button
                 class="mdc-icon-button medium-button material-icons right close-card"
-                aria-label="Exit"
+                aria-label="Sair"
                 jscontroller="VXdfxd"
                 jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                 tabindex="0"
-                data-tooltip="Exit"
+                data-tooltip="Sair"
                 data-tooltip-vertical-offset="-12"
                 data-tooltip-horizontal-offset="0"
             >
@@ -270,8 +270,8 @@ const cardHTML = `<div
                 <div id="no-students" style="display: none">
                     <i class="material-icons"> warning </i>
                     <p>
-                        Select edit or click the + button next to a name to add
-                        students to this class.
+                        Selecione editar ou clique no botão + ao lado de um nome para adicionar
+                        alunos para esta classe.
                     </p>
                 </div>
                 <ul
@@ -335,11 +335,11 @@ const cardHTML = `<div
             <button
                 class="mdc-icon-button medium-button material-icons right"
                 style="right: 32px"
-                aria-label="Help"
+                aria-label="Ajuda"
                 jscontroller="VXdfxd"
                 jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                 tabindex="0"
-                data-tooltip="Help"
+                data-tooltip="Ajuda"
                 data-tooltip-vertical-offset="-12"
                 data-tooltip-horizontal-offset="0"
             >
@@ -347,11 +347,11 @@ const cardHTML = `<div
             </button>
             <button
                 class="mdc-icon-button medium-button material-icons right close-card"
-                aria-label="Exit"
+                aria-label="Sair"
                 jscontroller="VXdfxd"
                 jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                 tabindex="0"
-                data-tooltip="Exit"
+                data-tooltip="Sair"
                 data-tooltip-vertical-offset="-12"
                 data-tooltip-horizontal-offset="0"
             >
@@ -400,7 +400,7 @@ const cardHTML = `<div
                             class="mdc-text-field__input"
                             rows="6"
                             cols="100"
-                            aria-label="Enter Student Names"
+                            aria-label="Digite os nomes dos alunos"
                             aria-controls="student-helper-id"
                             aria-describedby="student-helper-id"
                         ></textarea>
@@ -419,7 +419,7 @@ const cardHTML = `<div
                             id="student-helper-id"
                             aria-hidden="true"
                         >
-                            Separate names with Enter.
+                            Separe os nomes com Enter.
                         </div>
                     </div>
                 </div>
@@ -469,14 +469,14 @@ const selectDialogHTML = `<div class="mdc-dialog" id="select">
         >
             <div>
                 <h2 class="mdc-dialog__title CkXZgc" id="dialog-title">
-                    Select Class
+                    Selecione a Turma
                 </h2>
                 <button class="mdc-icon-button material-icons big-button right"
-                    aria-label="Help"
+                    aria-label="Ajuda"
                     jscontroller="VXdfxd"
                     jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                     tabindex="0"
-                    data-tooltip="Help"
+                    data-tooltip="Ajuda"
                     data-tooltip-vertical-offset="-12"
                     data-tooltip-horizontal-offset="0"
                 >
@@ -491,7 +491,7 @@ const selectDialogHTML = `<div class="mdc-dialog" id="select">
                         <i class="material-icons">
                             warning
                         </i>
-                        <p>You don't have any classes! Add a class by clicking the button below.</p>
+                        <p>Você não tem aulas! Adicione uma classe clicando no botão abaixo.</p>
                     </div>
                     <button 
                         class="mdc-button" 
@@ -559,7 +559,7 @@ const selectDialogHTML = `<div class="mdc-dialog" id="select">
                             Ex: Period 1 Math
                         </div>
                     </div>
-                    <div class="label CkXZgc">Student Names</div>
+                    <div class="label CkXZgc">Nomes dos Alunos</div>
                     <label
                         class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea mdc-text-field--no-label"
                     >
@@ -571,7 +571,7 @@ const selectDialogHTML = `<div class="mdc-dialog" id="select">
                             class="mdc-text-field__input"
                             rows="6"
                             cols="100"
-                            aria-label="Enter Student Names"
+                            aria-label="Digite os nomes dos alunos"
                             aria-controls="student-helper-id"
                             aria-describedby="student-helper-id"
                         ></textarea>
@@ -590,7 +590,7 @@ const selectDialogHTML = `<div class="mdc-dialog" id="select">
                             id="student-helper-id"
                             aria-hidden="true"
                         >
-                            Separate names with Enter.
+                            Separe os nomes com Enter.
                         </div>
                     </div>
                 </div>
@@ -636,7 +636,7 @@ const confirmDeleteDialogHTML = `<div id="delete-dialog" class="mdc-dialog">
                 class="mdc-dialog__content"
                 id="delete-dialog-content"
             >
-                Are you sure you want to delete this class?
+                Tem certeza que deseja excluir esta turma?
             </div>
             <div class="mdc-dialog__actions">
                 <button
@@ -671,10 +671,10 @@ const buttonHTML = `<div
     jsaction="mouseenter:tfO1Yc; mouseleave:JywGue; focus:AHmuwe; blur:O22p3e; contextmenu:mg9Pef"
     jsname="VyLmyb"
     aria-haspopup="true"
-    aria-label="Take attendance"
+    aria-label="Fazer a frequência"
     aria-disabled="false"
     tabindex="0"
-    data-tooltip="Take attendance"
+    data-tooltip="Fazer a frequência"
     aria-expanded="true"
     data-tab-id="0"
     data-tooltip-vertical-offset="-12"
@@ -712,7 +712,7 @@ const snackbarHTML = `<div class="mdc-snackbar">
     <div class="mdc-snackbar__label"
         role="status"
         aria-live="polite">
-        An error occurred. Please try again later.
+        Um erro ocorreu. Por favor, tente novamente mais tarde.
     </div>
     <div class="mdc-snackbar__actions">
         <button type="button"
@@ -721,7 +721,7 @@ const snackbarHTML = `<div class="mdc-snackbar">
             style="display:none;"
         >
             <div class="mdc-button__ripple"></div>
-            <span class="mdc-button__label">Help</span>
+            <span class="mdc-button__label">Ajuda</span>
         </button>
         <button 
             type="button" 

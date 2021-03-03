@@ -4,8 +4,8 @@ class Utils {
     static log(message) {
         console.log(
             `%c[A4GM]%c ${message} `,
-            'color:white;background:#058D80',
-            'font-weight:bold;color:#058D80;'
+            'color:white;background:#2E752A',
+            'font-weight:bold;color:#2E752A;'
         )
     }
 

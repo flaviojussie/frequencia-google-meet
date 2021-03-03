@@ -77,7 +77,7 @@ const cardHTML = `<div
     <div hidden id="card-class-view">
         <div class="mdc-card-header">
             <div>
-                <h2 class="CkXZgc card-title">Selecionar Classe</h2>
+                <h2 class="CkXZgc card-title">Selecionar Turma</h2>
             </div>
             <button
                 class="mdc-icon-button medium-button material-icons right"
@@ -86,7 +86,7 @@ const cardHTML = `<div
                 jscontroller="VXdfxd"
                 jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                 tabindex="0"
-                data-tooltip="Help"
+                data-tooltip="Ajuda"
                 data-tooltip-vertical-offset="-12"
                 data-tooltip-horizontal-offset="0"
             >
@@ -98,7 +98,7 @@ const cardHTML = `<div
                 jscontroller="VXdfxd"
                 jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                 tabindex="0"
-                data-tooltip="Exit"
+                data-tooltip="Sair"
                 data-tooltip-vertical-offset="-12"
                 data-tooltip-horizontal-offset="0"
             >
@@ -171,7 +171,7 @@ const cardHTML = `<div
                             tabindex="0"
                         >
                             <span class="mdc-list-item__text"
-                                >Sort by Last Name (A - Z)</span
+                                >Classificar por Sobrenome (A - Z)</span
                             >
                         </li>
                         <li
@@ -181,7 +181,7 @@ const cardHTML = `<div
                             tabindex="0"
                         >
                             <span class="mdc-list-item__text"
-                                >Sort by First Name (A - Z)</span
+                                >Classificar por nome (A - Z)</span
                             >
                         </li>
                         <li
@@ -191,7 +191,7 @@ const cardHTML = `<div
                             tabindex="0"
                         >
                             <span class="mdc-list-item__text"
-                                >Sort by Presence (Present First)</span
+                                >Classificar por presença (presentes primeiro)</span
                             >
                         </li>
                         <li
@@ -201,7 +201,7 @@ const cardHTML = `<div
                             tabindex="0"
                         >
                             <span class="mdc-list-item__text"
-                                >Sort by Presence (Absent First)</span
+                                >Classificar por presença (ausente primeiro)</span
                             >
                         </li>
                     </ul>
@@ -230,7 +230,7 @@ const cardHTML = `<div
                 jscontroller="VXdfxd"
                 jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                 tabindex="0"
-                data-tooltip="Sort Options"
+                data-tooltip="Opções de classificação"
                 data-tooltip-vertical-offset="-12"
                 data-tooltip-horizontal-offset="0"
             >
@@ -242,7 +242,7 @@ const cardHTML = `<div
                 jscontroller="VXdfxd"
                 jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                 tabindex="0"
-                data-tooltip="Exit"
+                data-tooltip="Sair"
                 data-tooltip-vertical-offset="-12"
                 data-tooltip-horizontal-offset="0"
             >
@@ -330,7 +330,7 @@ const cardHTML = `<div
                 arrow_back
             </button>
             <div>
-                <h2 class="CkXZgc card-title">Add/Edit Class</h2>
+                <h2 class="CkXZgc card-title">Adicionar/Editar Turma</h2>
             </div>
             <button
                 class="mdc-icon-button medium-button material-icons right"
@@ -339,7 +339,7 @@ const cardHTML = `<div
                 jscontroller="VXdfxd"
                 jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                 tabindex="0"
-                data-tooltip="Help"
+                data-tooltip="Ajuda"
                 data-tooltip-vertical-offset="-12"
                 data-tooltip-horizontal-offset="0"
             >
@@ -351,7 +351,7 @@ const cardHTML = `<div
                 jscontroller="VXdfxd"
                 jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                 tabindex="0"
-                data-tooltip="Exit"
+                data-tooltip="Sair"
                 data-tooltip-vertical-offset="-12"
                 data-tooltip-horizontal-offset="0"
             >
@@ -377,7 +377,7 @@ const cardHTML = `<div
                 style="max-height: 50vh; overflow: auto"
             >
                 <div class="label CkXZgc" style="margin-top: 8px">
-                    Nome da Classe
+                    Nome da Turma
                 </div>
                 <label
                     class="class-name-field mdc-text-field mdc-text-field--outlined"
@@ -388,7 +388,7 @@ const cardHTML = `<div
                         <span class="mdc-notched-outline__trailing"></span>
                     </span>
                 </label>
-                <div class="label CkXZgc">Student Names</div>
+                <div class="label CkXZgc">Nome dos Estudantes</div>
                     <label
                         class="mdc-text-field mdc-text-field--outlined mdc-text-field--textarea mdc-text-field--no-label"
                     >
@@ -469,14 +469,14 @@ const selectDialogHTML = `<div class="mdc-dialog" id="select">
         >
             <div>
                 <h2 class="mdc-dialog__title CkXZgc" id="dialog-title">
-                    Selecionar Classe
+                    Selecionar Turma
                 </h2>
                 <button class="mdc-icon-button material-icons big-button right"
                     aria-label="Ajuda"
                     jscontroller="VXdfxd"
                     jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                     tabindex="0"
-                    data-tooltip="Help"
+                    data-tooltip="Ajuda"
                     data-tooltip-vertical-offset="-12"
                     data-tooltip-horizontal-offset="0"
                 >
@@ -534,7 +534,7 @@ const selectDialogHTML = `<div class="mdc-dialog" id="select">
             <div id="dialog-edit-view" hidden>
                 <div class="mdc-dialog__content" id="dialog-content">
                     <div class="label CkXZgc" style="margin-top: 16px;">
-                        Nome da Classe
+                        Nome da Turma
                     </div>
                     <label
                         class="class-name-field mdc-text-field mdc-text-field--outlined"
@@ -671,10 +671,10 @@ const buttonHTML = `<div
     jsaction="mouseenter:tfO1Yc; mouseleave:JywGue; focus:AHmuwe; blur:O22p3e; contextmenu:mg9Pef"
     jsname="VyLmyb"
     aria-haspopup="true"
-    aria-label="Take attendance"
+    aria-label="Fazer a Frequência"
     aria-disabled="false"
     tabindex="0"
-    data-tooltip="Take attendance"
+    data-tooltip="Fazer a frequência"
     aria-expanded="true"
     data-tab-id="0"
     data-tooltip-vertical-offset="-12"
