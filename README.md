@@ -2,7 +2,7 @@
 
 ## O que é o Frequência Google Meet™
 #### 
-A extensão original Attendance for Google Meet™ é uma iniciativa dos desenvolvedores Tyler Lin e Adit Bala, nesse fork tentamos deixar essa bela iniciativa com uma aparência mais amigável para nossos colegas professores da rede estadual do Ceará. A extensão originalmente foi desenvolvida em inglês, desta forma traduzimos para facilitar a vida dos usuarios que não tem tanto domínio da língua inglesa. Uma outra adequação feita foi a possibilidade de incluir uma maior número de alunos, no início a extensão suportava apenas a inclusão de 270 alunos.
+A extensão original Attendance for Google Meet™ é uma iniciativa dos desenvolvedores Tyler Lin e Adit Bala, nesse fork tentamos deixar essa bela iniciativa com uma aparência mais amigável para nossos colegas professores da rede estadual do Ceará. A extensão originalmente foi desenvolvida em inglês, desta forma traduzimos para facilitar a vida dos usuarios que não tem tanto domínio da língua inglesa. Uma outra adequação feita foi a possibilidade de incluir um maior número de alunos, no início a extensão suportava apenas a inclusão de 270 alunos.
 
 ## Notícias sobre o projeto
 
