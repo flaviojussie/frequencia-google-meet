@@ -34,13 +34,13 @@ A nossa extensão Google Chrome, Frequência Google Meet™, racionaliza todo o 
 Para adicionar uma classe, clique ![Add Class](/img/caps/add-class.png "Add Class") no ecrã Select Class. Ser-lhe-á apresentado o ecrã Editar Turma, como descrito abaixo, com um título em branco e uma lista de alunos em branco.
 
 ### Editar uma turma
-Para editar uma classe, clique ![Edit icon](/img/caps/edit.svg "Edit Icon") ao lado da classe ou ![Edit Class](/img/caps/edit class.png "Edit Class") ao visualizar a classe.
+Para editar uma classe, clique ![Edit icon](/img/caps/edit.svg "Edit Icon") ao lado da classe ou ![Edit Class](/img/caps/edit-class.png "Edit Class") ao visualizar a classe.
 
 Estes trazem-no para o ecrã Edit Class, no qual pode introduzir o nome da turma e dos alunos.
 
 Para adicionar alunos a uma turma, digite os seus nomes directamente na área de texto separada por vírgula ou Enter.
 
-!(/img/gif/typing_names.gif "Typing Student Names")
+![Edit Class](/img/gif/typing_names.gif "Typing Student Names")
 
 Se tiver uma folha de cálculo com a lista dos alunos da sua turma, pode copiar e colar directamente, como se mostra abaixo. A dactilografia e a colagem podem ser utilizadas de forma intercambiável.
 
