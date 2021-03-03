@@ -1,11 +1,11 @@
-# Attendance for Google Meet™ (Frequência no Google Meet™)
+# Frequência Google Meet™
 
-## Frequência no Google Meet™ é um fork do Attendance for Google Meet™
+# Frequência Google Meet™ é um fork do Attendance for Google Meet™
 #### 
 A extensão original Attendance for Google Meet™ é uma iniciativa dos desenvolvedores Tyler Lin e Adit Bala, nesse fork tentamos deixar essa bela iniciativa com uma aparência mais amigável para nossos colegas professores da rede estadual do Ceará. 
 
 
-# Frequência no Google Meet™
+# Frequência Google Meet™
 
 ## Anúncios
 
