@@ -44,7 +44,7 @@ Para adicionar alunos a uma turma, digite os seus nomes directamente na área de
 
 Se tiver uma folha de cálculo com a lista dos alunos da sua turma, pode copiar e colar directamente, como se mostra abaixo. A dactilografia e a colagem podem ser utilizadas de forma intercambiável.
 
-Colar nomes de alunos](/img/gif/pasting_names.gif "Colar nomes de alunos")
+Colar nomes de alunos![Edit Class](/img/gif/pasting_names.gif "Colar nomes de alunos")
 
 Clique ![Remove name icon](/img/caps/cancel.svg "Remove Name Icon") para remover um nome.
 
