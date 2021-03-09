@@ -409,7 +409,7 @@
                             color: 'green',
                             tooltip: 'Present',
                             icon: 'check_circle',
-                            text: `Joined at ${Utils.toTimeString(arr[0])}`,
+                            text: `Entrou às ${Utils.toTimeString(arr[0])}`,
                             index: 2,
                         })
                     } else {
@@ -418,7 +418,7 @@
                             color: 'yellow',
                             tooltip: 'Previously Present',
                             icon: 'watch_later',
-                            text: `Last seen at ${Utils.toTimeString(
+                            text: `Visto por último em ${Utils.toTimeString(
                                 arr[arr.length - 1]
                             )}`,
                             index: 1,
@@ -439,7 +439,7 @@
                     color: 'gray',
                     tooltip: 'Not on List',
                     icon: 'error',
-                    text: `Joined at ${Utils.toTimeString(arr[0])}`,
+                    text: `Entrou às ${Utils.toTimeString(arr[0])}`,
                     index: -1,
                 })
             }
@@ -457,7 +457,7 @@
                     color: 'red',
                     tooltip: 'Absent',
                     icon: 'cancel',
-                    text: 'Not here',
+                    text: 'Não entrou',
                     index: 0,
                 })
             }
