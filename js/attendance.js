@@ -488,10 +488,10 @@
         for (const entry of entries) {
             if (entry.index === -1) {
                 var metaIcon = 'add_circle'
-                var metaTooltip = 'Add to Class'
+                var metaTooltip = 'Adicionar à Turma'
             } else {
                 metaIcon = 'remove_circle'
-                metaTooltip = 'Remove from Class'
+                metaTooltip = 'Remover da Turma'
             }
             var meta = `<div class="mdc-list-item__meta">
                 <button
@@ -684,7 +684,7 @@
             }
             chrome.storage.local.set({ rosters: rostersCache }, function () {
                 forceStatusUpdate()
-                snackbar.labelText = 'Desfazer com sucesso.'
+                snackbar.labelText = 'Desfeito com sucesso.'
                 removeSnackbarButtons()
                 snackbar.open()
                 resolve()
@@ -931,7 +931,7 @@
                     removeSnackbarButtons()
                     if (className === '') {
                         snackbar.labelText =
-                            'Erro: o nome da turma não pode estar vazio.'
+                            'Erro: O nome da turma não pode estar vazio.'
                         snackbar.close()
                         snackbar.open()
                     } else if (className.includes('§')) {
