@@ -604,7 +604,7 @@ function generateAttendanceRows(code) {
             for (const name of names) {
                 const firstName = Utils.getFirstName(name)
                 const lastName = Utils.getLastName(name)
-                let present = 'N',
+                let present = 'Não',
                     timeIn = '',
                     timeOut = '',
                     joins = 0,
@@ -656,8 +656,8 @@ function generateAttendanceRows(code) {
                             },
                             userEnteredFormat: {
                                 backgroundColor: {
-                                    red: present === 'N' ? 1 : 0.5,
-                                    green: present === 'N' ? 0.5 : 1,
+                                    red: present === 'Não' ? 1 : 0.5,
+                                    green: present === 'Não' ? 0.5 : 1,
                                     blue: 0.5,
                                     alpha: 1,
                                 },
