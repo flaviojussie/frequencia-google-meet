@@ -4,8 +4,8 @@ class Utils {
     static log(message) {
         console.log(
             `%c[A4GM]%c ${message} `,
-            'color:white;background:#058D80',
-            'font-weight:bold;color:#058D80;'
+            'color:white;background:#2E752A',
+            'font-weight:bold;color:#2E752A;'
         )
     }
 
@@ -18,20 +18,6 @@ class Utils {
             nHash = nHash & nHash // Convert to 32-bit integer
         }
         return Math.abs(nHash)
-    }
-
-    static minsPresent(timestamps) {
-        let minsPresent = 0
-        for (let i = 0; i < timestamps.length; i += 2) {
-            if (i + 1 === timestamps.length) {
-                var secs = ~~(Date.now() / 1000) - timestamps[i]
-            } else {
-                secs = timestamps[i + 1] - timestamps[i]
-            }
-            const mins = Math.round(secs / 6) / 10
-            minsPresent += mins
-        }
-        return minsPresent
     }
 
     static dateTimeString(startTimestamp, timestamp) {
@@ -107,6 +93,6 @@ class Utils {
     }
 
     static compareLast(a, b) {
-        return Utils.getLastName(a).localeCompare(Utils.getLastName(b))
+        return  Utils.getLastName(a).localeCompare(Utils.getLastName(b))
     }
 }

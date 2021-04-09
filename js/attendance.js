@@ -21,24 +21,9 @@
         }
     })
 
-    document.querySelectorAll('.view-changelog').forEach((element) => {
-        element.addEventListener('click', () => {
-            chrome.runtime.sendMessage({
-                data: 'open-url',
-                url: `https://github.com/flaviojussie/frequencia-google-meet/releases/tag/v${
-                    chrome.runtime.getManifest().version
-                }`,
-            })
-        })
-    })
-    document.querySelectorAll('.dismiss-updates').forEach((element) => {
-        element.addEventListener('click', () => {
-            chrome.storage.local.set({ 'updates-dismissed': true }, () => {
-                document.querySelectorAll('.updates').forEach((panel) => {
-                    panel.classList.add('collapsed')
-                })
-            })
-        })
+    chrome.runtime.sendMessage({
+        data: 'add-tab',
+        code: getMeetCode(),
     })
 
     new MutationObserver(function (mutations, me) {
@@ -47,7 +32,7 @@
             chrome.storage.local.get('auto-export', function (result) {
                 if (result['auto-export']) {
                     port.postMessage({ data: 'export', code: getMeetCode() })
-                    Utils.log(`Exportando...`)
+                    Utils.log(`Exporting...`)
                 }
                 me.disconnect()
             })
@@ -108,14 +93,10 @@
     }
 
     const attendanceButton = document.getElementById('attendance')
-    attendanceButton.addEventListener('click', toggleCard)
+    attendanceButton.addEventListener('click', showCard)
     attendanceButton.addEventListener('keydown', function (event) {
-        if (
-            event.key === ' ' ||
-            event.key === 'Enter' ||
-            event.key === 'Spacebar'
-        ) {
-            toggleCard()
+        if (event.key === 'Enter' || event.keyCode === 13) {
+            showCard()
         }
     })
 
@@ -123,45 +104,11 @@
         closeButton.addEventListener('click', hideCard)
     }
 
-    const statusBar = document.getElementById('status-bar')
-    const statusDetails = document.getElementById('status-details')
-    const statusCountEls = statusDetails.getElementsByClassName(
-        'status-details-count'
-    )
-    statusBar.addEventListener('click', toggleStatusDetails)
-    statusBar.addEventListener('keydown', function (event) {
-        if (
-            event.key === ' ' ||
-            event.key === 'Enter' ||
-            event.key === 'Spacebar'
-        ) {
-            toggleStatusDetails()
-        }
-    })
-    document
-        .getElementById('hide-status-details')
-        .addEventListener('click', toggleStatusDetails)
-
-    const jumpButton = document.getElementById('status-unlisted')
-    let unlistedPos = 0
-    jumpButton.addEventListener('click', jumpToUnlisted)
-    jumpButton.addEventListener('keydown', function (event) {
-        if (
-            event.key === ' ' ||
-            event.key === 'Enter' ||
-            event.key === 'Spacebar'
-        ) {
-            jumpToUnlisted()
-        }
-    })
-
-    const rosterStatus = document.getElementById('roster-status')
-
     const exportButton = document.getElementById('export')
     exportButton.addEventListener('click', function () {
         port.postMessage({ data: 'export', code: getMeetCode() })
         exportButton.disabled = true
-        Utils.log(`Exportando...`)
+        Utils.log(`Exporting...`)
     })
 
     const classList = new MDCList(document.querySelector('#class-list'))
@@ -279,7 +226,7 @@
                 snackbar.labelText = error
                 sbHelp.style.display = 'inline-flex'
             } else {
-                snackbar.labelText = 'Exportado com sucesso para o Google Sheets™!'
+                snackbar.labelText = 'Exportado com sucesso para o Google Sheets ™!'
                 sbOpen.style.display = 'inline-flex'
             }
             snackbar.close()
@@ -328,10 +275,6 @@
     for (const button of document.getElementsByClassName('mdc-button')) {
         new MDCRipple(button)
     }
-    for (const button of document.getElementsByClassName('mdc-icon-button')) {
-        const ripple = new MDCRipple(button)
-        ripple.unbounded = true
-    }
 
     function getMeetCode() {
         return document
@@ -367,7 +310,7 @@
                     ) {
                         codesToDelete.push(key)
                         if (key !== code) {
-                            chrome.storage.local.remove([key])
+                            chrome.storage.sync.remove([key])
                             delete result[key]
                         } else {
                             const className = result[key].class
@@ -425,12 +368,7 @@
 
             const className = res.class
             if (className) {
-                updateRosterStatus(
-                    currentData,
-                    result.rosters,
-                    className,
-                    result['presence-threshold']
-                )
+                updateRosterStatus(currentData, result.rosters, className, true)
             }
 
             chrome.storage.local.set({ [code]: res })
@@ -441,8 +379,9 @@
         attendance,
         rosters,
         className,
-        presenceThreshold
+        detect = false
     ) {
+        const rosterStatus = document.getElementById('roster-status')
         rosterStatus.innerHTML = ''
 
         const roster = rosters[className]
@@ -452,63 +391,38 @@
             document.querySelector('#no-students').style.display = 'none'
         }
         let entries = []
-        const statusCounts = {
-            red: 0,
-            yellow: 0,
-            green: 0,
-            gray: 0,
-        }
         let changed = false
         for (const name in attendance) {
-            const timestamps = attendance[name]
+            const arr = attendance[name]
             let found = false
             let i = 0
             while (!found && i < roster.length) {
                 const testName = roster[i]
                 if (
-                    testName.replace('|', ' ').trim().toLocaleUpperCase() ===
-                    name.replace('|', ' ').trim().toLocaleUpperCase()
+                    testName.replace('|', ' ').toLocaleUpperCase() ===
+                    name.replace('|', ' ').toLocaleUpperCase()
                 ) {
                     found = true
-                    const minsPresent = Utils.minsPresent(timestamps)
-                    if (minsPresent >= presenceThreshold) {
-                        if (timestamps.length % 2 === 1) {
-                            entries.push({
-                                name: name,
-                                color: 'green',
-                                tooltip: 'Presentes',
-                                icon: 'check_circle',
-                                text: `Ingressou às ${Utils.toTimeString(
-                                    timestamps[0]
-                                )}`,
-                                index: 2,
-                            })
-                            statusCounts.green++
-                        } else {
-                            entries.push({
-                                name: name,
-                                color: 'yellow',
-                                tooltip: 'Anteriormente Presente',
-                                icon: 'watch_later',
-                                text: `Visto por último em ${Utils.toTimeString(
-                                    timestamps[timestamps.length - 1]
-                                )}`,
-                                index: 1,
-                            })
-                            statusCounts.yellow++
-                        }
+                    if (arr.length % 2 === 1) {
+                        entries.push({
+                            name: name,
+                            color: 'green',
+                            tooltip: 'Present',
+                            icon: 'check_circle',
+                            text: `Entrou às ${Utils.toTimeString(arr[0])}`,
+                            index: 2,
+                        })
                     } else {
                         entries.push({
                             name: name,
-                            color: 'red',
-                            tooltip: 'Ausente',
-                            icon: 'cancel',
-                            text: `Ingressou ás ${Utils.toTimeString(
-                                timestamps[0]
+                            color: 'yellow',
+                            tooltip: 'Previously Present',
+                            icon: 'watch_later',
+                            text: `Visto por último em ${Utils.toTimeString(
+                                arr[arr.length - 1]
                             )}`,
-                            index: 0,
+                            index: 1,
                         })
-                        statusCounts.red++
                     }
                     if (testName !== name) {
                         roster[i] = name
@@ -523,15 +437,14 @@
                 entries.push({
                     name: name,
                     color: 'gray',
-                    tooltip: 'Não está na lista',
+                    tooltip: 'Not on List',
                     icon: 'error',
-                    text: `Ingressou ás ${Utils.toTimeString(timestamps[0])}`,
+                    text: `Entrou às ${Utils.toTimeString(arr[0])}`,
                     index: -1,
                 })
-                statusCounts.gray++
             }
         }
-        if (changed) {
+        if (detect && changed) {
             chrome.storage.local.set({ rosters: rosters })
         }
         const bigAttendance = Object.keys(attendance).map((key) =>
@@ -542,27 +455,20 @@
                 entries.push({
                     name: name,
                     color: 'red',
-                    tooltip: 'Ausente',
+                    tooltip: 'Absent',
                     icon: 'cancel',
-                    text: 'Não Entrou',
+                    text: 'Não entrou',
                     index: 0,
                 })
-                statusCounts.red++
             }
         }
 
         if (sortMethod === 'firstName') {
             var compare = (a, b) => {
-                if ((a.index === -1) !== (b.index === -1)) {
-                    return b.index - a.index
-                }
                 return Utils.compareFirst(a.name, b.name)
             }
         } else if (sortMethod === 'lastName') {
             compare = (a, b) => {
-                if ((a.index === -1) !== (b.index === -1)) {
-                    return b.index - a.index
-                }
                 return Utils.compareLast(a.name, b.name)
             }
         } else if (sortMethod === 'presentFirst') {
@@ -571,7 +477,7 @@
             }
         } else {
             compare = (a, b) => {
-                if ((a.index === -1) !== (b.index === -1)) {
+                if (a.index === -1 || b.index === -1) {
                     return b.index - a.index
                 }
                 return a.index - b.index
@@ -579,62 +485,17 @@
         }
         entries.sort(compare)
 
-        if (
-            statusCounts.gray === 0 &&
-            jumpButton.classList.contains('mdc-ripple-surface')
-        ) {
-            jumpButton.classList.remove('mdc-ripple-surface')
-            jumpButton.setAttribute('aria-disabled', true)
-            jumpButton.style.cursor = 'default'
-            jumpButton.removeAttribute('jscontroller')
-        }
-        entries.forEach((entry, index) => {
+        for (const entry of entries) {
             if (entry.index === -1) {
                 var metaIcon = 'add_circle'
-                var metaTooltip = 'Adcionar à sala'
-                if (index === 0 || entries[index - 1].index !== -1) {
-                    rosterStatus.insertAdjacentHTML(
-                        'beforeend',
-                        `<li class="mdc-list-divider" role="separator"></li>
-                        <li id="unlisted-divider">
-                            Not on List
-                            <button id="add-all-unlisted" class="mdc-button">
-                                <span class="mdc-button__ripple"></span>
-                                <span class="mdc-button__label">Adcionar Todos</span>
-                            </button>
-                        </li>`
-                    )
-                    unlistedPos = 61 * index
-                    if (!jumpButton.classList.contains('mdc-ripple-surface')) {
-                        jumpButton.classList.add('mdc-ripple-surface')
-                        jumpButton.setAttribute('aria-disabled', false)
-                        jumpButton.style.cursor = 'pointer'
-                        jumpButton.setAttribute('jscontroller', 'VXdfxd')
-                    }
-                    document
-                        .getElementById('add-all-unlisted')
-                        .addEventListener('click', function () {
-                            removeSnackbarButtons()
-                            rostersCache = rosters
-                            const nons = entries
-                                .filter((entry) => entry.index === -1)
-                                .map((non) => non.name)
-                            addBulkStudents(nons)
-                            snackbar.labelText = `Aluno ${nons.length} adicionado${
-                                nons.length === 1 ? '' : 's'
-                            } na sala.`
-                            sbUndo.style.display = 'inline-flex'
-                            snackbar.close()
-                            snackbar.open()
-                        })
-                }
+                var metaTooltip = 'Adicionar à Turma'
             } else {
                 metaIcon = 'remove_circle'
-                metaTooltip = 'Remover da sala'
+                metaTooltip = 'Remover da Turma'
             }
             var meta = `<div class="mdc-list-item__meta">
                 <button
-                    class="mdc-icon-button material-icons medium-button"
+                    class="mdc-icon-button material-icons"
                     aria-label="${metaTooltip}"
                     jscontroller="VXdfxd"
                     jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
@@ -646,7 +507,7 @@
                     ${metaIcon}
                 </button>
             </div>`
-            const realName = entry.name.replace('|', ' ').trim()
+            const realName = entry.name.replace('|', ' ')
             rosterStatus.insertAdjacentHTML(
                 'beforeend',
                 `<li class="mdc-list-divider" role="separator"></li>
@@ -698,36 +559,14 @@
                     snackbar.open()
                 })
             }
-        })
-        if (roster.length > 0)
-            rosterStatus.removeChild(rosterStatus.firstElementChild)
-
-        if (roster.length !== 0) {
-            ;['green', 'yellow', 'red'].forEach(function (color, index) {
-                const bar = document.getElementById(`status-${color}`)
-                bar.style.width = `${
-                    (100 * statusCounts[color]) / roster.length
-                }%`
-                const prefix = bar.getAttribute('aria-label').split(':')[0]
-                bar.setAttribute(
-                    'aria-label',
-                    `${prefix}: ${statusCounts[color]}/${roster.length}`
-                )
-                statusCountEls[index].innerHTML = `<b>${statusCounts[color]
-                    .toString()
-                    .padStart(roster.length.toString().length, '0')}</b>/${
-                    roster.length
-                }`
-            })
         }
-        statusCountEls[3].innerHTML = `<b>${statusCounts.gray}</b>`
     }
 
     function troubleshoot() {
         chrome.runtime.sendMessage({
             data: 'open-url',
             url:
-                'https://github.com/flaviojussie/frequencia-google-meet#resolu%C3%A7%C3%A3o-de-problemas',
+                'https://github.com/tytot/attendance-for-google-meet#troubleshoot',
         })
     }
 
@@ -749,50 +588,19 @@
         forceStatusUpdate()
     }
 
-    function toggleCard() {
-        if (document.getElementById('card').classList.contains('collapsed')) {
-            showCard()
-        } else {
-            hideCard()
-        }
-    }
-
     function showCard() {
         document.getElementsByClassName('NzPR9b')[0].style.borderRadius = '0px'
         const attendanceButton = document.getElementById('attendance')
         attendanceButton.classList.remove('IeuGXd')
-        document.getElementById('card').classList.remove('collapsed')
+        document.getElementById('card').style.visibility = 'visible'
     }
 
     function hideCard() {
-        setTimeout(() => {
-            document.getElementsByClassName('NzPR9b')[0].style.borderRadius =
-                '0 0 0 8px'
-        }, 250)
+        document.getElementsByClassName('NzPR9b')[0].style.borderRadius =
+            '0 0 0 8px'
         const attendanceButton = document.getElementById('attendance')
         attendanceButton.classList.add('IeuGXd')
-        document.getElementById('card').classList.add('collapsed')
-    }
-
-    function toggleStatusDetails() {
-        const expanded = statusBar.getAttribute('aria-expanded') === 'true'
-        statusBar.setAttribute('aria-pressed', !expanded)
-        statusBar.setAttribute('aria-expanded', !expanded)
-        if (!expanded) {
-            statusDetails.classList.remove('collapsed')
-            statusBar.setAttribute('data-tooltip', 'Ocultar detalhes de status')
-            statusBar.setAttribute('aria-label', 'Ocultar detalhes de status')
-        } else {
-            statusDetails.classList.add('collapsed')
-            statusBar.setAttribute('data-tooltip', 'Exibir detalhes de status')
-            statusBar.setAttribute('aria-label', 'Exibir detalhes de status')
-        }
-    }
-
-    function jumpToUnlisted() {
-        if (jumpButton.classList.contains('mdc-ripple-surface')) {
-            rosterStatus.parentElement.scrollTop = unlistedPos
-        }
+        document.getElementById('card').style.visibility = 'hidden'
     }
 
     function getClassHTML(className) {
@@ -813,24 +621,24 @@
             </span>
             <div class="mdc-list-item__meta">
                 <button
-                    class="mdc-icon-button material-icons medium-button edit-class"
+                    class="mdc-icon-button material-icons edit-class"
                     aria-label="Editar"
                     jscontroller="VXdfxd"
                     jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                     tabindex="0"
-                    data-tooltip="Editar"
+                    data-tooltip="Edit"
                     data-tooltip-vertical-offset="-12"
                     data-tooltip-horizontal-offset="0"
                 >
                     edit
                 </button>
                 <button
-                    class="mdc-icon-button material-icons medium-button delete-class"
+                    class="mdc-icon-button material-icons delete-class"
                     aria-label="Deletar"
                     jscontroller="VXdfxd"
                     jsaction="mouseenter:tfO1Yc; mouseleave:JywGue;"
                     tabindex="0"
-                    data-tooltip="Deletar"
+                    data-tooltip="Delete"
                     data-tooltip-vertical-offset="-12"
                     data-tooltip-horizontal-offset="0"
                 >
@@ -907,75 +715,6 @@
         })
     }
 
-    // function addClass(className, roster) {
-    //     return new Promise((resolve, reject) => {
-    //         writeRostersWithSplit(className, [roster])
-    //             .then((response) => {
-    //                 console.log(response)
-
-    //                 const classList = document.getElementById('class-list')
-    //                 classList.insertAdjacentHTML(
-    //                     'beforeend',
-    //                     getClassHTML(className)
-    //                 )
-    //                 const classEl = classList.lastChild
-    //                 classEl.name = className
-    //                 classEl.roster = roster
-    //                 document.querySelector('#no-classes').style.display = 'none'
-
-    //                 resolve(classEl)
-    //             })
-    //             .catch((error) => {
-    //                 console.log(error)
-    //                 reject(error)
-    //             })
-    //     })
-    // }
-
-    // function writeRostersWithSplit(className, rosterSet) {
-    //     console.log(rosterSet)
-    //     return new Promise((resolve, reject) => {
-    //         chrome.storage.local.get('rosters', function (result) {
-    //             let res = result['rosters']
-    //             for (let i = 0; i < rosterSet.length; i++) {
-    //                 if (i === 0) {
-    //                     res[className] = rosterSet[i]
-    //                 } else {
-    //                     res[`${className}°${i}`] = rosterSet[i]
-    //                 }
-    //             }
-    //             chrome.storage.local.set({ rosters: res }, function () {
-    //                 if (chrome.runtime.lastError) {
-    //                     if (
-    //                         chrome.runtime.lastError.message.startsWith(
-    //                             'QUOTA_BYTES_PER_ITEM'
-    //                         ) && rosterSet.length <= 16
-    //                     ) {
-    //                         writeRostersWithSplit(
-    //                             className,
-    //                             rosterSet
-    //                                 .map((subRoster) => {
-    //                                     const half = Math.ceil(
-    //                                         subRoster.length / 2
-    //                                     )
-    //                                     return [
-    //                                         subRoster.splice(0, half),
-    //                                         subRoster.splice(-half),
-    //                                     ]
-    //                                 })
-    //                                 .flat()
-    //                         ).then(resolve)
-    //                     } else {
-    //                         reject(chrome.runtime.lastError)
-    //                     }
-    //                 } else {
-    //                     resolve()
-    //                 }
-    //             })
-    //         })
-    //     })
-    // }
-
     function updateClass(className, roster, set = false) {
         return new Promise((resolve) => {
             chrome.storage.local.get(null, function (result) {
@@ -1043,21 +782,11 @@
 
     function deleteClass(className) {
         return new Promise((resolve) => {
-            chrome.storage.local.get(null, function (result) {
+            chrome.storage.local.get('rosters', function (result) {
                 let res = result['rosters']
                 delete res[className]
                 chrome.storage.local.set({ rosters: res })
 
-                for (const key of Object.keys(result)) {
-                    if (
-                        result[key].hasOwnProperty('class') &&
-                        typeof result[key].class === 'string' &&
-                        result[key].class === className
-                    ) {
-                        delete result[key]['class']
-                        chrome.storage.local.set({ [key]: result[key] })
-                    }
-                }
                 const classList = document.getElementById('class-list')
                 const classEls = classList.getElementsByTagName('li')
                 for (const classEl of classEls) {
@@ -1081,30 +810,7 @@
             let res = result.rosters
             res[className].push(name)
             chrome.storage.local.set({ rosters: res })
-            updateRosterStatus(
-                result[code].attendance,
-                res,
-                className,
-                result['presence-threshold']
-            )
-        })
-    }
-
-    function addBulkStudents(names) {
-        chrome.storage.local.get(null, function (result) {
-            const code = getMeetCode()
-            const className = result[code].class
-            let res = result.rosters
-            names.forEach((name) => {
-                res[className].push(name)
-            })
-            chrome.storage.local.set({ rosters: res })
-            updateRosterStatus(
-                result[code].attendance,
-                res,
-                className,
-                result['presence-threshold']
-            )
+            updateRosterStatus(result[code].attendance, res, className)
         })
     }
 
@@ -1115,12 +821,7 @@
             let res = result.rosters
             res[className] = res[className].filter((n) => n !== name)
             chrome.storage.local.set({ rosters: res })
-            updateRosterStatus(
-                result[code].attendance,
-                res,
-                className,
-                result['presence-threshold']
-            )
+            updateRosterStatus(result[code].attendance, res, className)
         })
     }
 
@@ -1129,12 +830,7 @@
             const res = result[getMeetCode()]
             const className = res.class
             if (className) {
-                updateRosterStatus(
-                    res.attendance,
-                    result.rosters,
-                    className,
-                    result['presence-threshold']
-                )
+                updateRosterStatus(res.attendance, result.rosters, className)
             }
         })
     }
@@ -1145,7 +841,7 @@
         chipSetEl.innerHTML = ''
         chipSet = new MDCChipSet(chipSetEl)
         for (const name of roster) {
-            addChip(name.replace('|', ' ').trim())
+            addChip(name.replace('|', ' '))
         }
         stuTextField.value = getNewFieldValue()
     }
@@ -1388,9 +1084,8 @@
                             res.attendance,
                             result.rosters,
                             res.class,
-                            result['presence-threshold']
+                            true
                         )
-                        rosterStatus.parentElement.scrollTop = 0
                     })
                 }
             })
