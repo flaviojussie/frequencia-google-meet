@@ -2,6 +2,7 @@ const MDCRipple = mdc.ripple.MDCRipple
 for (const button of document.getElementsByClassName('mdc-button')) {
     new MDCRipple(button)
 }
+const MDCIconButtonToggle = mdc.iconButton.MDCIconButtonToggle
 // const iconButtonRipple = new MDCRipple(document.querySelector('#lang'));
 // iconButtonRipple.unbounded = true;
 // const MDCMenu = mdc.menu.MDCMenu
@@ -27,29 +28,54 @@ const popupSwitch = new MDCSwitch(
 )
 
 const MDCTextField = mdc.textField.MDCTextField
+const thresholdField = new MDCTextField(
+    document.querySelector('#presence-threshold .mdc-text-field')
+)
 const intervalField = new MDCTextField(
-    document.querySelector('.mdc-text-field') 
+    document.querySelector('#reset-interval .mdc-text-field')
 )
 
+document.getElementById('version').textContent = `Version ${
+    chrome.runtime.getManifest().version
+}`
 const openButton = document.querySelector('#open')
 
-let autoExport = false
-let showPopup = false
+let presenceThreshold = 0
 let resetInterval = 12
 chrome.storage.local.get(
-    ['auto-export', 'show-popup', 'reset-interval', 'spreadsheet-id'],
+    [
+        'auto-export',
+        'show-popup',
+        'presence-threshold',
+        'reset-interval',
+        'spreadsheet-id',
+    ],
     function (result) {
-        if (result['auto-export']) {
-            exportSwitch.checked = true
-            autoExport = true
+        if (result.hasOwnProperty('auto-export')) {
+            exportSwitch.checked = result['auto-export']
+        } else {
+            exportSwitch.checked = false
+            chrome.storage.local.set({ 'auto-export': false })
         }
-        if (result['show-popup']) {
+        if (result.hasOwnProperty('show-popup')) {
+            popupSwitch.checked = result['show-popup']
+        } else {
             popupSwitch.checked = true
-            showPopup = true
+            chrome.storage.local.set({ 'show-popup': true })
+        }
+        if (result.hasOwnProperty('presence-threshold')) {
+            thresholdField.value = result['presence-threshold']
+            presenceThreshold = result['presence-threshold']
+        } else {
+            thresholdField.value = 0
+            chrome.storage.local.set({ 'presence-threshold': 0 })
         }
         if (result.hasOwnProperty('reset-interval')) {
             intervalField.value = result['reset-interval']
             resetInterval = result['reset-interval']
+        } else {
+            intervalField.value = 12
+            chrome.storage.local.set({ 'reset-interval': 12 })
         }
 
         const id = result['spreadsheet-id']
@@ -64,52 +90,94 @@ chrome.storage.local.get(
     }
 )
 
-document.querySelector('#docs').addEventListener('click', function () {
+document.querySelector('#telegram').addEventListener('click', function () {
     chrome.tabs.create({
-        url: 'https://github.com/tytot/attendance-for-google-meet#usage',
+        url:
+            'https://t.me/joinchat/-d2ov0s-NCJjYzY5',
     })
 })
+
+document.querySelector('#instagram').addEventListener('click', function () {
+    chrome.tabs.create({
+        url:
+            'https://www.instagram.com/flaviojussie',
+    })
+})
+
 document.querySelector('#contact').addEventListener('click', function () {
     chrome.tabs.create({
         url:
-            'mailto:tyleradit@gmail.com?subject=Regarding%20the%20Attendance%20for%20Google%20Meet%20Chrome%20Extension',
+            'mailto:flvferna@gmail.com?subject=Regarding%20the%20Attendance%20for%20Google%20Meet%20Chrome%20Extension',
+    })
+})
+
+document.querySelector('#docs').addEventListener('click', function () {
+    chrome.tabs.create({
+        url: 'https://github.com/flaviojussie/frequencia-google-meet#utiliza%C3%A7%C3%A3o',
+    })
+})
+
+document.querySelectorAll('.help').forEach((butt) => {
+    const iconToggle = new MDCIconButtonToggle(butt)
+    iconToggle.listen('MDCIconButtonToggle:change', (event) => {
+        const description = butt.parentElement.querySelector('.description')
+        if (event.detail.isOn) {
+            description.classList.remove('collapsed')
+        } else {
+            description.classList.add('collapsed')
+        }
     })
 })
 document.querySelector('#auto-export').addEventListener('click', function () {
-    if (exportSwitch.checked !== autoExport) {
-        autoExport = exportSwitch.checked
-        chrome.storage.local.set({ 'auto-export': exportSwitch.checked })
-    }
+    chrome.storage.local.set({ 'auto-export': exportSwitch.checked })
 })
 document.querySelector('#show-popup').addEventListener('click', function () {
-    if (popupSwitch.checked !== showPopup) {
-        showPopup = popupSwitch.checked
-        chrome.storage.local.set({ 'show-popup': popupSwitch.checked })
-    }
+    chrome.storage.local.set({ 'show-popup': popupSwitch.checked })
 })
-document.querySelector('#reset-interval').addEventListener('input', function () {
-    if (intervalField.value !== '' && intervalField.value !== resetInterval) {
-        const tempInterval = parseFloat(intervalField.value)
-        if (isNaN(tempInterval))
-            intervalField.value = resetInterval
-        else {
-            resetInterval = tempInterval
-            chrome.storage.local.set({ 'reset-interval': resetInterval })
+document
+    .querySelector('#presence-threshold')
+    .addEventListener('input', function () {
+        if (
+            thresholdField.value !== '' &&
+            thresholdField.value !== presenceThreshold
+        ) {
+            const tempThreshold = parseFloat(thresholdField.value)
+            if (isNaN(tempThreshold)) thresholdField.value = presenceThreshold
+            else {
+                presenceThreshold = tempThreshold
+                chrome.storage.local.set({
+                    'presence-threshold': presenceThreshold,
+                })
+            }
         }
-    }
-})
+    })
+document
+    .querySelector('#reset-interval')
+    .addEventListener('input', function () {
+        if (
+            intervalField.value !== '' &&
+            intervalField.value !== resetInterval
+        ) {
+            const tempInterval = parseFloat(intervalField.value)
+            if (isNaN(tempInterval)) intervalField.value = resetInterval
+            else {
+                resetInterval = tempInterval
+                chrome.storage.local.set({ 'reset-interval': resetInterval })
+            }
+        }
+    })
 
 const moreOptions = document.querySelector('#more-options')
 const expandButton = document.querySelector('#expand')
 expandButton.addEventListener('click', function () {
-    if (moreOptions.hidden) {
-        moreOptions.hidden = false
+    if (moreOptions.classList.contains('collapsed')) {
+        moreOptions.classList.remove('collapsed')
         expandButton.querySelector('.mdc-button__label').innerHTML =
-            'Hide Advanced'
+            'Ocultar Avançandos'
     } else {
-        moreOptions.hidden = true
+        moreOptions.classList.add('collapsed')
         expandButton.querySelector('.mdc-button__label').innerHTML =
-            'Show Advanced'
+            'Exibir Avançandos'
     }
 })
 
@@ -127,21 +195,22 @@ refreshButton.addEventListener('click', function () {
             chrome.storage.local.set({ 'last-token-refresh': unix })
             refreshButton.disabled = true
             try {
-                chrome.identity.getAuthToken({ interactive: false }, function (
-                    token
-                ) {
-                    chrome.identity.removeCachedAuthToken(
-                        { token: token },
-                        function () {
-                            console.log(`Token de autenticação ${token} removido.`)
-                            snackbar.close()
-                            snackbar.labelText =
-                                'Token de autenticação atualizado com sucesso.'
-                            snackbar.open()
-                            refreshButton.disabled = false
-                        }
-                    )
-                })
+                chrome.identity.getAuthToken(
+                    { interactive: false },
+                    function (token) {
+                        chrome.identity.removeCachedAuthToken(
+                            { token: token },
+                            function () {
+                                console.log(`Token de autenticação ${token} removido.`)
+                                snackbar.close()
+                                snackbar.labelText =
+                                    'Token de autenticação atualizado com sucesso.'
+                                snackbar.open()
+                                refreshButton.disabled = false
+                            }
+                        )
+                    }
+                )
             } catch (error) {
                 console.log(error)
                 snackbar.close()
@@ -175,15 +244,26 @@ document.querySelector('#clear').addEventListener('click', function () {
     clearDialog.open()
 })
 document.querySelector('#confirm-clear').addEventListener('click', function () {
+    exportSwitch.checked = false
+    popupSwitch.checked = true
+    thresholdField.value = 0
+    intervalField.value = 12
     chrome.storage.local.get(null, function (result) {
         for (const key in result) {
             if (key !== 'spreadsheet-id') {
                 chrome.storage.local.remove(key)
             }
         }
+        chrome.storage.local.set({ 'auto-export': false })
+        chrome.storage.local.set({ 'show-popup': true })
+        chrome.storage.local.set({ 'presence-threshold': 0 })
         chrome.storage.local.set({ 'reset-interval': 12 })
         snackbar.close()
         snackbar.labelText = 'Armazenamento limpo com sucesso.'
         snackbar.open()
+
+        chrome.runtime.sendMessage({
+            data: 'refresh-meets',
+        })
     })
 })

@@ -29,7 +29,7 @@ function addSheet(className, code, sheetId) {
                     gridProperties: {
                         rowCount: 2,
                         columnCount: 7,
-                        frozenRowCount: 0,
+                        frozenRowCount: 1,
                     },
                 },
             },
@@ -191,7 +191,7 @@ function createHeaders(sheetId) {
                             {
                                 userEnteredValue: {
                                     stringValue:
-                                        'Gerado pelo Serviço de Atendimento ao Professor para a extensão Google Meet™.',
+                                        'Lista de frequência gerada pela extensão Frequência Google Meet™.',
                                 },
                                 userEnteredFormat: {
                                     horizontalAlignment: 'CENTER',
@@ -552,6 +552,24 @@ function collapseGroup(token, code, spreadsheetId, sheetId) {
     })
 }
 
+const red = {
+    red: 217 / 255,
+    green: 48 / 255,
+    blue: 37 / 255,
+    alpha: 1,
+}
+const green = {
+    red: 52 / 255,
+    green: 167 / 255,
+    blue: 83 / 255,
+    alpha: 1,
+}
+const white = {
+    red: 1,
+    green: 1,
+    blue: 1,
+    alpha: 1,
+}
 function generateAttendanceRows(code) {
     return new Promise((resolve) => {
         chrome.storage.local.get(null, function (result) {
@@ -560,6 +578,7 @@ function generateAttendanceRows(code) {
             const mins = Math.round((unix - startUnix) / 6) / 10
             const roster = result.rosters[result[code].class]
             const rawData = result[code].attendance
+            const presenceThreshold = result['presence-threshold']
 
             const dts = Utils.dateTimeString(startUnix, unix)
             const header = `${dts} (${mins} min): ${code}`
@@ -609,32 +628,20 @@ function generateAttendanceRows(code) {
                     timeOut = '',
                     joins = 0,
                     minsPresent = 0
-
-                for (const entry in rawData) {
-                    if (
-                        entry.toLocaleUpperCase() === name.toLocaleUpperCase()
-                    ) {
-                        const timestamps = rawData[entry]
-                        const l = timestamps.length
-                        if (l > 0) {
-                            present = 'Sim'
-                            timeIn = Utils.toTimeString(timestamps[0])
-                            if ((l - 1) % 2 === 1) {
-                                timeOut = Utils.toTimeString(timestamps[l - 1])
-                            }
-                            joins = Math.ceil(l / 2)
-                            for (let i = 0; i < l; i += 2) {
-                                let secs
-                                if (i + 1 === l) {
-                                    secs = unix - timestamps[i]
-                                } else {
-                                    secs = timestamps[i + 1] - timestamps[i]
-                                }
-                                const mins = Math.round(secs / 6) / 10
-                                minsPresent += mins
-                            }
+                if (rawData.hasOwnProperty(name)) {
+                    const timestamps = rawData[name]
+                    const l = timestamps.length
+                    if (l > 0) {
+                        present = 'Sim'
+                        timeIn = Utils.toTimeString(timestamps[0])
+                        if ((l - 1) % 2 === 1) {
+                            timeOut = Utils.toTimeString(timestamps[l - 1])
                         }
-                        break
+                    }
+                    joins = Math.ceil(l / 2)
+                    minsPresent = Utils.minsPresent(timestamps)
+                    if (present === 'Sim' && minsPresent < presenceThreshold) {
+                        present = 'Não'
                     }
                 }
 
@@ -655,14 +662,20 @@ function generateAttendanceRows(code) {
                                 stringValue: present,
                             },
                             userEnteredFormat: {
-                                backgroundColor: {
-                                    red: present === 'Não' ? 1 : 0.5,
-                                    green: present === 'Não' ? 0.5 : 1,
-                                    blue: 0.5,
-                                    alpha: 1,
+                                backgroundColor: present === 'Não' ? red : green,
+                                borders: {
+                                    top: {
+                                        style: 'SOLID',
+                                        color: white,
+                                    },
+                                    bottom: {
+                                        style: 'SOLID',
+                                        color: white,
+                                    },
                                 },
                                 horizontalAlignment: 'CENTER',
                                 textFormat: {
+                                    foregroundColor: white,
                                     bold: true,
                                 },
                             },

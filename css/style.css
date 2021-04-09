@@ -1,15 +1,7 @@
-/**
-#attendance:focus {
+/* #attendance:focus {
     background-color: #e1efee;
     border-radius: 0px 0px 0px 8px;
-} 
-*/
-
-:root {
-    --gm-theme-color: #2E752A !important;
-    --mdc-theme-primary: #2E752A !important;
-    --mdc-typography-button-font-family: Roboto;
-}
+} */
 
 @font-face {
     font-family: 'Material Icons';
@@ -33,6 +25,13 @@
             format('woff2'),
         url(chrome-extension://fldnfkeijmngmgjgnagiidmonemlbmpl/fonts/mono/BruhMono.woff)
             format('woff');
+}
+
+:root {
+    --green: #34a753;
+    --red: #d93025;
+    --yellow: #fabb04;
+    --gray: #bababa;
 }
 
 .material-icons {
@@ -62,68 +61,59 @@
 
 #dialog-title {
     text-align: center;
-    top: -4px;
+    top: -6px;
     max-width: none;
     font-size: 20px;
+    height: 52px;
+}
+
+#card {
+    max-height: 100vh;
+    transition: max-height 0.25s;
+    overflow: hidden;
 }
 
 .card-title {
+    height: 52px;
+    line-height: 52px !important;
+    font-size: 20px !important;
     text-align: center;
-    max-width: calc(100% - 148px) !important;
-    margin-top: 12px;
-    margin-bottom: 12px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 88px;
 }
 
 .left {
     position: absolute;
-    top: 0px;
-    left: 0px;
-    padding: 0px;
+    top: 8px;
+    left: 8px;
     z-index: 1;
 }
 
 .right {
     position: absolute;
-    top: 0px;
-    right: 0px;
-    padding: 0px;
-}
-
-.big-button {
-    margin: 4px 8px 0 4px;
+    top: 8px;
+    right: 8px;
 }
 
 .medium-button {
-    margin: 8px 10px 0 10px;
-    width: 32px;
-    height: 32px;
-    font-size: 20px;
-}
-
-.small-button {
-    margin: 0 0 8px 0;
+    width: 36px;
+    height: 36px;
     padding: 0;
-    width: 24px;
-    height: 24px;
-    font-size: 18px;
 }
 
-.material-icons.green {
-    color: #7fff7f;
+.green {
+    color: var(--green);
 }
 
-.material-icons.red {
-    color: #ff7f7f;
+.red {
+    color: var(--red);
 }
 
-.material-icons.yellow {
-    color: #ffec7f;
+.yellow {
+    color: var(--yellow);
 }
 
-.material-icons.gray {
-    color: #bababa;
+.gray {
+    color: var(--gray);
 }
 
 #select .mdc-dialog__content {
@@ -139,12 +129,87 @@
     border-radius: 8px;
 }
 
+#status-bar {
+    display: flex;
+    height: 8px;
+    cursor: pointer;
+}
+#status-red {
+    background-color: var(--red);
+}
+#status-yellow {
+    background-color: var(--yellow);
+}
+#status-green {
+    background-color: var(--green);
+}
+#status-details {
+    max-height: 100px;
+    overflow: hidden;
+    transition: max-height 0.25s;
+    margin: 0 12px;
+    text-align: center;
+    position: relative;
+}
+#hide-status-details {
+    position: absolute;
+    bottom: 8px;
+    right: 0;
+    font-size: 0.8rem;
+    height: 27px;
+}
+#status-presence {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 12px 0 4px 0;
+}
+#status-unlisted {
+    display: inline-block;
+    padding: 4px 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.status-details-container {
+    text-align: center;
+    margin-left: -14px;
+}
+.status-details-container .material-icons {
+    vertical-align: text-top;
+    font-size: 14px;
+}
+.status-details-count {
+    font-family: 'Bruh Mono', monospace;
+    font-size: 14px;
+}
+.status-details-text {
+    text-align: center;
+    color: var(--mdc-theme-text-secondary-on-background);
+    font-size: 12px;
+}
+
 .mdc-list {
     padding: 0px;
 }
 
 .mdc-list-item {
     padding-right: 8px;
+}
+
+#unlisted-divider {
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 8px;
+    padding-left: 16px;
+    letter-spacing: 0;
+    background-color: var(--gm-neutral-highlight-color);
+}
+#add-all-unlisted {
+    float: right;
+    height: min-content;
+    font-size: 0.8rem;
 }
 
 .class-entry {
@@ -165,43 +230,63 @@
     font-family: 'Google Sans', Roboto, Arial, sans-serif;
 }
 
-#no-classes,
-#no-students {
+.notification {
     display: flex;
     align-items: center;
-    max-width: 400px;
+    padding: 0 12px;
 }
 
-#no-classes i,
-#no-students i {
-    font-size: 48px;
-    margin-left: 24px;
-    margin-right: 8px;
-    color: #9e9e9e;
+.notification i {
+    vertical-align: text-bottom;
+    padding-right: 4px;
 }
 
-#no-classes p,
-#no-students p {
-    font-size: 16px;
+.notification p {
+    font-size: 20px;
     font-family: 'Google Sans', Roboto, Arial, sans-serif;
     text-align: center;
-    margin-right: 24px;
+    margin: 1em;
+}
+
+.updates {
+    max-height: 300px;
+    transition: max-height 0.25s;
+    background-color: var(--mdc-theme-primary);
+    color: white;
+    overflow: visible;
+}
+
+.collapsed {
+    max-height: 0 !important;
+    overflow: hidden;
+}
+
+.updates i {
+    color: white;
+}
+
+.updates-actions {
+    overflow: hidden;
+}
+
+.updates-actions button {
+    color: white !important;
 }
 
 #addeth-class {
     width: 100%;
     height: 48px;
     justify-content: left;
-    padding-left: 16px;
-    color: #2E752A;
+    padding-left: 8px;
+    color: var(--mdc-theme-primary);
 }
 
 #addeth-class .mdc-button__icon {
-    width: 24px;
+    width: 36px;
     height: 24px;
     font-size: 24px;
-    margin-right: 16px;
-    color: #2E752A;
+    margin-right: 8px;
+    color: var(--mdc-theme-primary);
 }
 
 #edit-roster {
@@ -216,16 +301,18 @@
     cursor: default;
 }
 
+.mdc-list-item {
+    padding: 0 8px !important;
+}
 .mdc-list-item__graphic {
-    margin-right: 16px;
+    width: 36px !important;
+    height: 36px !important;
+    padding: 0 !important;
+    margin-right: 8px !important;
 }
 
 .export-button {
     margin: 0 auto !important;
-}
-
-:root {
-    --text-offset: -10px;
 }
 
 .label {
@@ -272,5 +359,5 @@
 }
 
 .mdc-notched-outline {
-    z-index: 3;
+    z-index: 3 !important;
 }
